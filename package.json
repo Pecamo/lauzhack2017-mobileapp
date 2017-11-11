@@ -25,8 +25,20 @@
     "@ionic-native/status-bar": "4.3.3",
     "@ionic/storage": "2.1.3",
     "angularfire2": "^5.0.0-rc.3",
+    "cordova-android": "6.3.0",
+    "cordova-plugin-browsertab": "^0.2.0",
+    "cordova-plugin-buildinfo": "^2.0.1",
+    "cordova-plugin-compat": "^1.2.0",
+    "cordova-plugin-customurlscheme": "^4.3.0",
+    "cordova-plugin-device": "^1.1.4",
+    "cordova-plugin-inappbrowser": "^1.7.2",
+    "cordova-plugin-ionic-webview": "^1.1.16",
+    "cordova-plugin-splashscreen": "^4.0.3",
+    "cordova-plugin-whitelist": "^1.3.1",
+    "cordova-universal-links-plugin": "^1.2.1",
     "firebase": "^4.6.2",
     "ionic-angular": "3.9.2",
+    "ionic-plugin-keyboard": "^2.2.1",
     "ionicons": "3.0.0",
     "rxjs": "5.5.2",
     "sw-toolbox": "3.6.0",
@@ -36,5 +48,27 @@
     "@ionic/app-scripts": "3.1.0",
     "typescript": "2.4.2"
   },
-  "description": "An Ionic project"
+  "description": "An Ionic project",
+  "cordova": {
+    "plugins": {
+      "ionic-plugin-keyboard": {},
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-buildinfo": {},
+      "cordova-universal-links-plugin": {},
+      "cordova-plugin-browsertab": {},
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-customurlscheme": {
+        "URL_SCHEME": "ch.pecamo.fidelizy",
+        "ANDROID_SCHEME": " ",
+        "ANDROID_HOST": " ",
+        "ANDROID_PATHPREFIX": "/"
+      }
+    },
+    "platforms": [
+      "android"
+    ]
+  }
 }

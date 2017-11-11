@@ -14,8 +14,20 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {AngularFireModule} from "angularfire2";
 import {AngularFireAuthModule} from "angularfire2/auth";
 import {AngularFireDatabaseModule} from "angularfire2/database";
+import {DataProvider} from '../providers/data/data';
 
 // configuration copy-pasted from the fb console
+// export const firebaseConfig = {
+//   apiKey: "AIzaSyAZmg1qH9lSntOWl2EuM9b7GBRXOt6WDZ8",
+//   authDomain: "fidelizy-b765c.firebaseapp.com",
+//   databaseURL: "https://fidelizy-b765c.firebaseio.com",
+//   projectId: "fidelizy-b765c",
+//   storageBucket: "fidelizy-b765c.appspot.com",
+//   messagingSenderId: "155242724045"
+// };
+
+
+// Initialize Firebase
 export const firebaseConfig = {
   apiKey: "AIzaSyAZmg1qH9lSntOWl2EuM9b7GBRXOt6WDZ8",
   authDomain: "fidelizy-b765c.firebaseapp.com",
@@ -53,7 +65,8 @@ export const firebaseConfig = {
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    DataProvider
   ]
 })
 export class AppModule {

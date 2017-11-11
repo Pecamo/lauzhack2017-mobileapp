@@ -7,6 +7,7 @@ import {AngularFireAuth} from "angularfire2/auth";
 // Do not import from 'firebase' as you'd lose the tree shaking benefits
 import * as firebase from 'firebase/app';
 import {TabsPage} from "../tabs/tabs";
+import {DataProvider} from "../../providers/data/data";
 
 /**
  * Generated class for the LoginPage page.
@@ -21,7 +22,8 @@ import {TabsPage} from "../tabs/tabs";
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public afauth: AngularFireAuth, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public afauth: AngularFireAuth, public toastCtrl: ToastController,
+              private dataProvider: DataProvider) {
   }
 
   ionViewDidLoad() {
@@ -46,24 +48,19 @@ export class LoginPage {
 
 
   private _login(provider: firebase.auth.AuthProvider) {
-    this.afauth.auth.signInWithPopup(provider)
+    this.afauth.auth.signInWithRedirect(provider)
       .then(
-        ok => {
+        userInfo => {
           // TODO
-          console.log(ok);
-          this.navCtrl.push(TabsPage);
+          this.navCtrl.setRoot(TabsPage);
         },
         error => {
+          console.log(error);
           this.toastCtrl.create({
             message: 'An error occurred ' + error,
             duration: 3000
           }).present();
         });
-  }
-
-
-  logout() {
-    return this.afauth.auth.signOut();
   }
 
 }
