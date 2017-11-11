@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, ToastController} from 'ionic-angular';
+import {IonicPage, NavController, Platform, ToastController} from 'ionic-angular';
 
 import {AngularFireAuth} from "angularfire2/auth";
 
@@ -23,7 +23,7 @@ import {DataProvider} from "../../providers/data/data";
 export class LoginPage {
 
   constructor(public navCtrl: NavController, public afauth: AngularFireAuth, public toastCtrl: ToastController,
-              private dataProvider: DataProvider) {
+              private dataProvider: DataProvider, private platform: Platform) {
   }
 
   ionViewDidLoad() {
@@ -48,25 +48,49 @@ export class LoginPage {
 
 
   private _login(provider: firebase.auth.AuthProvider) {
-    this.afauth.auth.signInWithPopup(provider)
-      .then(result => {
-      // This gives you a Google Access Token.
-      // You can use it to access the Google API.
-      // var token = result.credential.accessToken;
-      // The signed-in user info.
-      var user = result.user;
 
-      console.log(user);
-      this.navCtrl.setRoot(TabsPage);
+    let authMethod;
+    if (this.platform.is('cordova')) {
+      this.afauth.auth.signInWithRedirect(provider)
+        .then(result => {
+          // This gives you a Google Access Token.
+          // You can use it to access the Google API.
+          // var token = result.credential.accessToken;
+          // The signed-in user info.
+          var user = result.user;
 
-    }).catch(error => {
-      // Handle Errors here.
-      console.log(error);
-      this.toastCtrl.create({
-        message: 'An error occurred ' + error,
-        duration: 3000
-      }).present();
-    });
+          console.log(user);
+          this.navCtrl.setRoot(TabsPage);
+
+        }).catch(error => {
+        // Handle Errors here.
+        console.log(error);
+        this.toastCtrl.create({
+          message: 'An error occurred ' + error,
+          duration: 3000
+        }).present();
+      });
+    } else {
+      this.afauth.auth.signInWithPopup(provider)
+        .then(result => {
+          // This gives you a Google Access Token.
+          // You can use it to access the Google API.
+          // var token = result.credential.accessToken;
+          // The signed-in user info.
+          var user = result.user;
+
+          console.log(user);
+          this.navCtrl.setRoot(TabsPage);
+
+        }).catch(error => {
+        // Handle Errors here.
+        console.log(error);
+        this.toastCtrl.create({
+          message: 'An error occurred ' + error,
+          duration: 3000
+        }).present();
+      });
+    }
   }
 
 }

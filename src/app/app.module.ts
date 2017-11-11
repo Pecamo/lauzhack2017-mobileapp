@@ -15,6 +15,7 @@ import {AngularFireModule} from "angularfire2";
 import {AngularFireAuthModule} from "angularfire2/auth";
 import {AngularFireDatabaseModule} from "angularfire2/database";
 import {DataProvider} from '../providers/data/data';
+import {ManagerPage} from "../pages/manager/manager";
 
 // configuration copy-pasted from the fb console
 // export const firebaseConfig = {
@@ -44,7 +45,8 @@ export const firebaseConfig = {
     ContactPage,
     HomePage,
     TabsPage,
-    LoginPage
+    LoginPage,
+    ManagerPage
   ],
   imports: [
     BrowserModule,
@@ -60,7 +62,8 @@ export const firebaseConfig = {
     ContactPage,
     HomePage,
     TabsPage,
-    LoginPage
+    LoginPage,
+    ManagerPage
   ],
   providers: [
     StatusBar,
