@@ -19,6 +19,7 @@ export class LoadingPage {
   constructor(public navCtrl: NavController, private dataProvider: DataProvider) {
     dataProvider.init().subscribe(isLoggedIn => {
       this.navCtrl.setRoot(isLoggedIn ? TabsPage : LoginPage);
+      console.log("logged", isLoggedIn);
     });
   }
 }

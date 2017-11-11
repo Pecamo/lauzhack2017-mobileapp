@@ -17,6 +17,7 @@ import {Business, BusinessInfo, User} from "../../types";
 @Injectable()
 export class DataProvider {
 
+
   private initialized = false;
 
   public refs = {
@@ -25,28 +26,43 @@ export class DataProvider {
     'managers': null
   };
 
-  public user: firebase.User;
+
+  private managingBusiness: Business;
+  private user: firebase.User;
 
   constructor(private afauth: AngularFireAuth) {
 
   }
 
 
-  init(): Observable<any> {
-    return (this.initialized) ? Observable.of(true) :
-      this.afauth.authState.map(
-        user => {
-          this.user = user;
-          this._init();
-          return true;
-        },
-        error => false
-      );
+  init(): Observable<boolean> {
+    return (this.initialized) ? Observable.of(this.user != null) :
+      new Observable((observer: Observer<any>) => {
+        this.afauth.authState.subscribe(
+          user => {
+            this.user = user;
+            this.initialized = true;
+            if (user != null) this._init(observer);
+            else observer.next(false);
+          },
+          error => observer.error(error)
+        );
+      });
   }
 
-  _init() {
+  _init(observer: Observer<boolean>) {
     this.refs.businesses = firebase.database().ref('businesses');
     this.refs.user = firebase.database().ref(`users/${this.user.uid}`);
+    firebase.database().ref(`managers/${this.user.uid}`).once('value', m => {
+      if (m.val() != null) {
+        this.refs.businesses.child(m.val().business_id).once('value', b => {
+          this.managingBusiness = <Business>b;
+          observer.next(true);
+        });
+      } else {
+        observer.next(true);
+      }
+    });
     // create user if not exist
     /*this.refs.user.once('value', u => {
       if (u.val() == null) {
@@ -61,8 +77,16 @@ export class DataProvider {
     return this.afauth.auth.currentUser != null;
   }
 
+  isManager(): boolean {
+    return this.managingBusiness != null;
+  }
+
   getUser(): firebase.User {
-    return this.afauth.auth.currentUser;
+    return this.user;
+  }
+
+  getManagingBusiness(): Business {
+    return this.managingBusiness;
   }
 
   logout() {
