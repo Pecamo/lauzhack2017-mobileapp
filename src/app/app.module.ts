@@ -19,6 +19,10 @@ import {ManagerPage} from "../pages/manager/manager";
 import {NgxQRCodeModule} from "ngx-qrcode2";
 import {LoadingPage} from "../pages/loading/loading";
 import {MySpacePage} from "../pages/my-space/my-space";
+import {BarcodeScanner} from "@ionic-native/barcode-scanner";
+import {QrScanPage} from "../pages/qr-scan/qr-scan";
+import {SelectFcPage} from "../pages/select-fc/select-fc";
+import {SelectArticlePage} from "../pages/select-article/select-article";
 
 // configuration copy-pasted from the fb console
 // export const firebaseConfig = {
@@ -51,7 +55,10 @@ export const firebaseConfig = {
     LoginPage,
     ManagerPage,
     LoadingPage,
-    MySpacePage
+    MySpacePage,
+    QrScanPage,
+    SelectFcPage,
+    SelectArticlePage
   ],
   imports: [
     BrowserModule,
@@ -71,13 +78,17 @@ export const firebaseConfig = {
     LoginPage,
     ManagerPage,
     LoadingPage,
-    MySpacePage
+    MySpacePage,
+    QrScanPage,
+    SelectFcPage,
+    SelectArticlePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    DataProvider
+    DataProvider,
+    BarcodeScanner
   ]
 })
 export class AppModule {

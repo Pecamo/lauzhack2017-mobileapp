@@ -1,5 +1,22 @@
 // http://ionicframework.com/docs/theming/
 
+ion-card button {
+  text-align: center !important;
+  padding: 0 !important;
+
+  ion-card-header {
+    font-size: large !important;
+    padding: 0 !important;
+  }
+  ion-card-content {
+    text-align: center !important;
+    padding: 0 !important;
+  }
+
+  .item-inner {
+    padding-right: 0 !important;
+  }
+}
 
 // App Global Sass
 // --------------------------------------------------

@@ -1,0 +1,25 @@
+<!--
+  Generated template for the SelectArticlePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Article to debit</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-card *ngFor="let article of articles; let i = index" (click)="itemTapped(article)">
+    <button ion-item [ngStyle]="randomColor(i, articles.length)">
+      <ion-card-header text-wrap>
+        {{article.key}}
+      </ion-card-header>
+      <ion-card-content>
+        +{{article.value}} points
+      </ion-card-content>
+    </button>
+  </ion-card>
+</ion-content>

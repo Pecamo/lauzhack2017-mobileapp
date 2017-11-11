@@ -55,7 +55,7 @@ export class DataProvider {
     firebase.database().ref(`managers/${this.user.uid}`).once('value', m => {
       if (m.val() != null) {
         this.refs.businesses.child(m.val().business_id).once('value', b => {
-          this.managingBusiness = <Business>b;
+          this.managingBusiness = <Business>b.val();
           observer.next(true);
         });
       } else {
@@ -99,16 +99,28 @@ export class DataProvider {
     });
   }
 
-  userSub(): Observable<User> {
+  // userSub(): Observable<User> {
+  //   return new Observable((observer: Observer<User>) => {
+  //     this.refs.user.on('value',
+  //       (s) => {
+  //         let u = s.val();
+  //         if(u != null) u._id = this.user.uid;
+  //         observer.next(<User>u);
+  //       }
+  //     );
+  //   });
+  // }
+
+  getUserFromUID(uid: string): Observable<User> {
+    console.log("scanned user", uid);
     return new Observable((observer: Observer<User>) => {
-      this.refs.user.on('value',
+      firebase.database().ref(`users/${uid}`).once('value',
         (s) => {
           let u = s.val();
+          if(u != null) u._id = uid;
           observer.next(<User>u);
-        }
+        }, observer.error
       );
     });
   }
-
-
 }
