@@ -16,6 +16,7 @@ import {AngularFireAuthModule} from "angularfire2/auth";
 import {AngularFireDatabaseModule} from "angularfire2/database";
 import {DataProvider} from '../providers/data/data';
 import {NgxQRCodeModule} from "ngx-qrcode2";
+import {LoadingPage} from "../pages/loading/loading";
 
 // configuration copy-pasted from the fb console
 // export const firebaseConfig = {
@@ -45,7 +46,8 @@ export const firebaseConfig = {
     ContactPage,
     HomePage,
     TabsPage,
-    LoginPage
+    LoginPage,
+    LoadingPage
   ],
   imports: [
     BrowserModule,
@@ -62,7 +64,8 @@ export const firebaseConfig = {
     ContactPage,
     HomePage,
     TabsPage,
-    LoginPage
+    LoginPage,
+    LoadingPage
   ],
   providers: [
     StatusBar,
