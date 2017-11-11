@@ -4,7 +4,6 @@ import {Injectable} from '@angular/core';
 // Do not import from 'firebase' as you'd lose the tree shaking benefits
 import * as firebase from 'firebase/app';
 import {AngularFireAuth} from "angularfire2/auth";
-import {AngularFireDatabase} from "angularfire2/database";
 import {Observable} from "rxjs/Observable";
 import {Observer} from "rxjs/Observer";
 import {Business, BusinessInfo, User} from "../../types";
