@@ -16,6 +16,7 @@ import {AngularFireAuthModule} from "angularfire2/auth";
 import {AngularFireDatabaseModule} from "angularfire2/database";
 import {DataProvider} from '../providers/data/data';
 import {ManagerPage} from "../pages/manager/manager";
+import {NgxQRCodeModule} from "ngx-qrcode2";
 
 // configuration copy-pasted from the fb console
 // export const firebaseConfig = {
@@ -54,6 +55,7 @@ export const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    NgxQRCodeModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
