@@ -18,6 +18,7 @@ import {DataProvider} from "../../providers/data/data";
 
 
 @Component({
+  selector: 'page-login',
   templateUrl: 'login.html'
 })
 export class LoginPage {

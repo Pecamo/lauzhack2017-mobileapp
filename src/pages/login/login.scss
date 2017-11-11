@@ -1,3 +1,36 @@
 page-login {
+  ion-content {
+    background-image: url(../assets/imgs/login_bg.jpg);
+    background-size: cover;
+    background-position: center;
+  }
 
+  .title {
+    text-align: center;
+    color: white;
+    font-size: 400%;
+    padding-top: 10%;
+    padding-bottom: 40%;
+  }
+
+  .title2 {
+    text-align: center;
+    color: lightgray;
+    font-size: 200%;
+  }
+
+  .content {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+    color: lightgray;
+    padding-top: 5%;
+    min-height: 100px;
+
+    .buttonContainer {
+      width: 100%;
+      text-align: center;
+      font-size: 200%;
+    }
+  }
 }
