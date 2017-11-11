@@ -11,12 +11,17 @@
 
 <ion-content padding>
   <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+
+  <ion-list *ngIf="businesses">
+    <ion-item *ngFor="let b of businesses; let idx = index">
+      <ion-avatar item-start>
+        <img [src]="b.infos.logo">
+      </ion-avatar>
+      <h2>{{b.infos.name}} ({{b._id}})</h2>
+      <p>{{b.infos.description}}</p>
+      <p><a [href]="b.infos.website">website</a></p>
+      <button (click)="update(idx)">update</button>
+    </ion-item>
+  </ion-list>
+
 </ion-content>
