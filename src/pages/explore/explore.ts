@@ -29,7 +29,7 @@ export class ExplorePage {
       console.log(b);
     });
 
-    this.dataProvider.userSub().subscribe(u => this.user = u);
+    this.dataProvider.getUserFromUID(this.dataProvider.user.uid).subscribe(u => this.user = u);
   }
 
   update(idx: number) {

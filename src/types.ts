@@ -28,7 +28,7 @@ export interface FidelityCard {
 
 export interface Business {
   infos: BusinessInfo;
-  fcs: FidelityCard[];
+  FCs: FidelityCard[];
 }
 
 

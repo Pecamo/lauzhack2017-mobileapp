@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {DataProvider} from "../../providers/data/data";
 import {ManagerPage} from "../manager/manager";
+import {QrScanPage} from "../qr-scan/qr-scan";
 
 @Component({
   selector: 'page-qr-show',
@@ -9,6 +10,7 @@ import {ManagerPage} from "../manager/manager";
 })
 export class QRShowPage {
 
+  // see https://ionicacademy.com/ionic-qr-code-generator-reader/
   createdCode: string;
 
   constructor(public navCtrl: NavController, private dataProvider: DataProvider) {
@@ -16,7 +18,7 @@ export class QRShowPage {
   }
 
   openManager() {
-    this.navCtrl.push(ManagerPage);
+    this.navCtrl.push(QrScanPage);
   }
 
 }
