@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 
 import {AboutPage} from '../about/about';
-import {ContactPage} from '../contact/contact';
-import {HomePage} from '../home/home';
+import {QRShowPage} from '../qr-show/qr-show';
+import {ExplorePage} from '../explore/explore';
 import {DataProvider} from "../../providers/data/data";
 import {NavController} from "ionic-angular";
 import {LoginPage} from "../login/login";
@@ -13,8 +13,8 @@ import {ManagerPage} from "../manager/manager";
 })
 export class TabsPage {
 
-  tab1Root = HomePage;
-  tab2Root = AboutPage;
+  tab1Root = QRShowPage;
+  tab2Root = ExplorePage;
   tab3Root = ManagerPage;
 
   constructor(public navCtrl: NavController, private dataProvider: DataProvider) {

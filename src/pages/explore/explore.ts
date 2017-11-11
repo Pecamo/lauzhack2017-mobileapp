@@ -4,10 +4,10 @@ import {DataProvider} from "../../providers/data/data";
 import {Business, User} from "../../types";
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-explore',
+  templateUrl: 'explore.html'
 })
-export class HomePage {
+export class ExplorePage {
 
   businesses: Business[];
   user: User;

@@ -1,26 +1,29 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home
-      <span *ngIf="dataProvider.user">, Hi {{dataProvider.user.displayName}}</span>
+    <button ion-button icon-only>
+      <ion-icon name="hammer"></ion-icon>
+    </button>
+    <ion-title>
+      <span *ngIf="dataProvider.user">Hi {{dataProvider.user.displayName}}</span>
     </ion-title>
     <ion-buttons end>
-      <button (click)="dataProvider.logout()">logout</button>
+      <button ion-button icon-only (click)="dataProvider.logout()">
+        <ion-icon name="log-out"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-
+<ion-content>
   <ion-list *ngIf="businesses">
     <ion-item *ngFor="let b of businesses; let idx = index">
       <ion-avatar item-start>
-        <img [src]="b.infos.logo">
+        <img [src]="b.infos.logo" class="ratio">
       </ion-avatar>
       <h2>{{b.infos.name}} ({{b._id}})</h2>
       <p>{{b.infos.description}}</p>
       <p><a [href]="b.infos.website">website</a></p>
-      <button (click)="update(idx)">update</button>
+      <!--<button (click)="update(idx)">update</button>-->
     </ion-item>
   </ion-list>
 

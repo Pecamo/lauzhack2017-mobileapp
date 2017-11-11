@@ -1,17 +1,22 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {DataProvider} from "../../providers/data/data";
+import {ManagerPage} from "../manager/manager";
 
 @Component({
-  selector: 'page-contact',
-  templateUrl: 'contact.html'
+  selector: 'page-qr-show',
+  templateUrl: 'qr-show.html'
 })
-export class ContactPage {
+export class QRShowPage {
 
   createdCode: string;
 
   constructor(public navCtrl: NavController, private dataProvider: DataProvider) {
     this.createdCode = this.dataProvider.getUser().uid;
+  }
+
+  openManager() {
+    this.navCtrl.push(ManagerPage);
   }
 
 }
