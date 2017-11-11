@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Home
+      <span *ngIf="dataProvider.user">, Hi {{dataProvider.user.displayName}}</span>
+    </ion-title>
+    <ion-buttons end>
+      <button (click)="dataProvider.logout()">logout</button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 

@@ -16,12 +16,26 @@ import {Observable} from "rxjs/Observable";
 @Injectable()
 export class DataProvider {
 
-  user: Observable<firebase.User>;
+  private initialized = false;
+
+  public user: firebase.User;
 
   constructor(private afauth: AngularFireAuth, private af: AngularFireDatabase) {
-    console.log('Hello DataProvider Provider');
-    this.user = afauth.authState;
   }
+
+
+  init(): Observable<any> {
+    return (this.initialized) ? Observable.of(true) :
+      this.afauth.authState.map(
+        user => {
+          console.log(user);
+          this.user = user;
+          return true;
+        },
+        error => false
+      );
+  }
+
 
   isLoggedIn(): boolean {
     return this.afauth.auth.currentUser != null;
