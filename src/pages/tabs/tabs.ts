@@ -7,6 +7,7 @@ import {DataProvider} from "../../providers/data/data";
 import {NavController} from "ionic-angular";
 import {LoginPage} from "../login/login";
 import {ManagerPage} from "../manager/manager";
+import {MySpacePage} from "../my-space/my-space";
 
 @Component({
   templateUrl: 'tabs.html'
@@ -14,8 +15,8 @@ import {ManagerPage} from "../manager/manager";
 export class TabsPage {
 
   tab1Root = QRShowPage;
-  tab2Root = ExplorePage;
-  tab3Root = ManagerPage;
+  tab2Root = MySpacePage;
+  tab3Root = ExplorePage;
 
   constructor(public navCtrl: NavController, private dataProvider: DataProvider) {
     console.log("constructor");

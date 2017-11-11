@@ -12,7 +12,7 @@ export class QRShowPage {
   createdCode: string;
 
   constructor(public navCtrl: NavController, private dataProvider: DataProvider) {
-    this.createdCode = this.dataProvider.getUser().uid;
+    this.createdCode = this.dataProvider.user.uid;
   }
 
   openManager() {
