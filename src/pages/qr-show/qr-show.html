@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-buttons start>
       <button ion-button icon-only (click)="openManager()">
         <ion-icon name="hammer"></ion-icon>
@@ -16,11 +16,14 @@
   </ion-navbar>
 </ion-header>
 
+
 <ion-content>
-  <ion-card *ngIf="createdCode">
-    <ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>
-    <ion-card-content>
-      <p>Value: {{ createdCode }}</p>
-    </ion-card-content>
-  </ion-card>
+  <div class="content" *ngIf="createdCode">
+    <div>
+      <ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>
+    </div>
+    <div>
+      <p class="textCode">{{ createdCode }}</p>
+    </div>
+  </div>
 </ion-content>

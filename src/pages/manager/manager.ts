@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
+import {QRShowPage} from "../qr-show/qr-show";
 
 
 /**
@@ -31,6 +32,10 @@ export class ManagerPage {
 
   private toList(input) {
     return Object.keys(input).map((key) => {return {'name': key, 'points': input[key]};});
+  }
+
+  openCustomer() {
+    this.navCtrl.setRoot(QRShowPage);
   }
 
   private itemTapped(article: {name: string, points: number}) {

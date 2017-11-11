@@ -1,8 +1,18 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
+    <ion-buttons start>
+      <button ion-button icon-only (click)="openCustomer()">
+        <ion-icon name="person"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>
       Manager page
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="dataProvider.logout()">
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
