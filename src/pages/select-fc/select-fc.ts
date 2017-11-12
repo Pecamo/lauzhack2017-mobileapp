@@ -20,14 +20,14 @@ import {QrScanPage} from "../qr-scan/qr-scan";
 })
 export class SelectFcPage extends Page {
 
-  user: User;
+  user_id: string;
   fcs: FidelityCard[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dataProvider: DataProvider,
               protected toaster: ToastController, protected app: App) {
     super(toaster, app);
     this.fcs = this.objectToList(this.dataProvider.managingBusiness.FCs);
-    this.user = this.navParams.get('user');
+    this.user_id = this.navParams.get('user_id');
   }
 
   ionViewDidLoad() {
@@ -39,7 +39,7 @@ export class SelectFcPage extends Page {
   }
 
   itemTapped(fc: FidelityCard) {
-    this.navCtrl.push(SelectArticlePage, {fc: fc, user_id: this.user._id});
+    this.navCtrl.push(SelectArticlePage, {fc: fc, user_id: this.user_id});
   }
 
 }

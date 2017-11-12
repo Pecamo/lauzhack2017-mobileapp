@@ -22,6 +22,11 @@ ion-fab[bottom] {
   bottom: 50px !important;
 }
 
+ion-avatar {
+  display: flex;
+  align-items: center;
+}
+
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
