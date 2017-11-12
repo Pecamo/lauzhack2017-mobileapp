@@ -18,6 +18,10 @@ ion-card button {
   }
 }
 
+ion-fab[bottom] {
+  bottom: 50px !important;
+}
+
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These

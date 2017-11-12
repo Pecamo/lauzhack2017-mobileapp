@@ -39,7 +39,7 @@ export class SelectFcPage extends Page {
   }
 
   itemTapped(fc: FidelityCard) {
-    this.navCtrl.push(SelectArticlePage, {fc: fc, user: this.user});
+    this.navCtrl.push(SelectArticlePage, {fc: fc, user_id: this.user._id});
   }
 
 }

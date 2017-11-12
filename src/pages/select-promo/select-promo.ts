@@ -3,6 +3,7 @@ import {App, NavController, NavParams} from 'ionic-angular';
 import {Page} from "../../Page";
 import {DataProvider} from "../../providers/data/data";
 import {FidelityCard, KeyValuePair, User} from "../../types";
+import {QrScanPage} from "../qr-scan/qr-scan";
 
 /**
  * Generated class for the SelectPromoPage page.
@@ -26,11 +27,21 @@ export class SelectPromoPage extends Page {
               private dataProvider: DataProvider) {
     super(null, app);
     this.fc = this.navParams.get('fc');
-    this.user = this.navParams.get('user');
-    this.userPts = this.computeTransactionSum(this.user.FCs[this.fc._id].transactions);
+    this.dataProvider.getUserFromUID(this.navParams.get('user_id'), false).subscribe(
+      u => this._setUser(u), error => this.showToast(error)
+    );
     if (this.fc.promos) {
       this.promos = this.objectToList(this.fc.promos);
     }
+  }
+
+  private _setUser(u: User) {
+    this.user = u;
+    this.userPts = this.computeTransactionSum(this.user.FCs[this.fc._id].transactions);
+  }
+
+  finish() {
+    this.openPage(QrScanPage);
   }
 
   itemTapped(promos: KeyValuePair) {
