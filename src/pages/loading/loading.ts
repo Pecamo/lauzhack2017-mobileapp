@@ -17,7 +17,7 @@ import {Page} from "../../Page";
 })
 export class LoadingPage extends Page {
 
-  constructor(public navCtrl: NavController, private dataProvider: DataProvider, protected app: App) {
+  constructor(public navCtrl: NavController, protected app: App) {
     super(null, app);
 
   }

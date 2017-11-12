@@ -5,6 +5,7 @@ import {DataProvider} from "../../providers/data/data";
 import {NavController} from "ionic-angular";
 import {LoginPage} from "../login/login";
 import {MySpacePage} from "../my-space/my-space";
+import {SplashScreen} from "@ionic-native/splash-screen";
 
 @Component({
   templateUrl: 'tabs.html'
@@ -15,8 +16,12 @@ export class TabsPage {
   tab2Root = MySpacePage;
   tab3Root = ExplorePage;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, private splashScreen: SplashScreen) {
 
+  }
+
+  ionViewDidLoad() {
+    this.splashScreen.hide();
   }
 
 }
