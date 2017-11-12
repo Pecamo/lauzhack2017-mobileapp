@@ -28,10 +28,6 @@ export class QrScanPage extends Page {
     super(toast, app);
   }
 
-  ionViewDidLoad() {
-    this.scanCode();
-  }
-
   scanCode() {
     this.barcodeScanner.scan().then(barcodeData => {
       this.scannedCode = barcodeData.text;
@@ -42,6 +38,7 @@ export class QrScanPage extends Page {
   }
 
   checkCode(uid: string) {
+    if(uid == null || uid.length < 3) return;
     this.dataProvider.getUserFromUID(uid).subscribe(user => {
       if (user != null) {
         const fcs = this.objectToList(this.dataProvider.managingBusiness.FCs);

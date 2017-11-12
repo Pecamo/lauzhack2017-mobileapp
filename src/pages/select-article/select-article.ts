@@ -29,7 +29,7 @@ export class SelectArticlePage extends Page {
   }
 
   isPromoPossible(): boolean {
-    if (!this.user || !this.fc.promos || this.fc.promos.length == 0) return false;
+    if (!this.user || !this.user.FCs || !this.user.FCs[this.fc._id] || !this.fc.promos) return false;
     const pts = this.computeTransactionSum(this.user.FCs[this.fc._id].transactions);
     return Object.keys(this.fc.promos).map(p => this.fc.promos[p].value <= pts).length > 0;
   }

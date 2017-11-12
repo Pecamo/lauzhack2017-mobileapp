@@ -177,12 +177,11 @@ export class DataProvider {
       if (result == null) {
         snap.ref.set({
           fc_id: fc._id,
-          business_id: this.managingBusiness._id,
-          transactions: [trans]
+          business_id: this.managingBusiness._id
         });
-      } else {
-        snap.ref.child('transactions').push(trans)
       }
+      snap.ref.child(`transactions/${time}`).set(trans)
+
     });
 
     rootRef.child('message').set(messageObject);
