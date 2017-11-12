@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {App, NavController} from 'ionic-angular';
 import {DataProvider} from "../../providers/data/data";
 import {TabsPage} from "../tabs/tabs";
 import {LoginPage} from "../login/login";
+import {Page} from "../../Page";
 
 /**
  * Generated class for the LoadingPage page.
@@ -14,9 +15,10 @@ import {LoginPage} from "../login/login";
 @Component({
   templateUrl: 'loading.html',
 })
-export class LoadingPage {
+export class LoadingPage extends Page {
 
-  constructor(public navCtrl: NavController, private dataProvider: DataProvider) {
+  constructor(public navCtrl: NavController, private dataProvider: DataProvider, protected app: App) {
+    super(null, app);
     dataProvider.init().subscribe(isLoggedIn => {
       this.navCtrl.setRoot(isLoggedIn ? TabsPage : LoginPage);
       console.log("logged", isLoggedIn);

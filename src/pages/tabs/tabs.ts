@@ -1,12 +1,9 @@
 import {Component} from '@angular/core';
-
-import {AboutPage} from '../about/about';
 import {QRShowPage} from '../qr-show/qr-show';
 import {ExplorePage} from '../explore/explore';
 import {DataProvider} from "../../providers/data/data";
 import {NavController} from "ionic-angular";
 import {LoginPage} from "../login/login";
-import {ManagerPage} from "../manager/manager";
 import {MySpacePage} from "../my-space/my-space";
 
 @Component({

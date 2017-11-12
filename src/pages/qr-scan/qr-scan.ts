@@ -1,8 +1,10 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, ToastController} from 'ionic-angular';
+import {App, NavController, ToastController} from 'ionic-angular';
 import {BarcodeScanner} from "@ionic-native/barcode-scanner";
 import {DataProvider} from "../../providers/data/data";
 import {SelectFcPage} from "../select-fc/select-fc";
+import {TabsPage} from "../tabs/tabs";
+import {Page} from "../../Page";
 
 /**
  * Generated class for the QrScanPage page.
@@ -15,13 +17,14 @@ import {SelectFcPage} from "../select-fc/select-fc";
   selector: 'page-qr-scan',
   templateUrl: 'qr-scan.html',
 })
-export class QrScanPage {
+export class QrScanPage extends Page {
 
   scannedCode =  "";
   manualUid = "";
 
-  constructor(public navCtrl: NavController, public barcodeScanner: BarcodeScanner, private toast: ToastController,
-              private dataProvider: DataProvider) {
+  constructor(public navCtrl: NavController, public barcodeScanner: BarcodeScanner, protected toast: ToastController,
+              private dataProvider: DataProvider, protected app: App) {
+    super(toast, app);
   }
 
   ionViewDidLoad() {
@@ -47,5 +50,8 @@ export class QrScanPage {
     }, error => this.toast.create({message: error, duration: 3000}).present());
   }
 
+  openCustomer() {
+    this.openPage(TabsPage);
+  }
 
 }

@@ -1,13 +1,12 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, Platform, ToastController} from 'ionic-angular';
+import {App, NavController, Platform, ToastController} from 'ionic-angular';
 
 import {AngularFireAuth} from "angularfire2/auth";
-
 // see https://github.com/angular/angularfire2/blob/master/docs/version-4-upgrade.md#removing-angularfire-for-modularity
 // Do not import from 'firebase' as you'd lose the tree shaking benefits
 import * as firebase from 'firebase/app';
 import {TabsPage} from "../tabs/tabs";
-import {DataProvider} from "../../providers/data/data";
+import {Page} from "../../Page";
 
 /**
  * Generated class for the LoginPage page.
@@ -21,10 +20,10 @@ import {DataProvider} from "../../providers/data/data";
   selector: 'page-login',
   templateUrl: 'login.html'
 })
-export class LoginPage {
+export class LoginPage extends Page {
 
-  constructor(public navCtrl: NavController, public afauth: AngularFireAuth, public toastCtrl: ToastController,
-              private dataProvider: DataProvider, private platform: Platform) {
+  constructor(public navCtrl: NavController, public afauth: AngularFireAuth, public toastCtrl: ToastController, private platform: Platform, protected app: App) {
+    super(toastCtrl, app);
   }
 
   ionViewDidLoad() {

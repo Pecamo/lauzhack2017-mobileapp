@@ -1,18 +1,20 @@
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {App, NavController} from 'ionic-angular';
 import {DataProvider} from "../../providers/data/data";
 import {Business, User} from "../../types";
+import {Page} from "../../Page";
 
 @Component({
   selector: 'page-explore',
   templateUrl: 'explore.html'
 })
-export class ExplorePage {
+export class ExplorePage extends Page {
 
   businesses: Business[];
   user: User;
 
-  constructor(public navCtrl: NavController, public dataProvider: DataProvider) {
+  constructor(public navCtrl: NavController, private dataProvider: DataProvider, protected app: App) {
+    super(null, app);
     dataProvider.init().subscribe(b => this._init());
   }
 

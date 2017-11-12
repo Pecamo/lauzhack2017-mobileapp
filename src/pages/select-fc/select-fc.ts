@@ -1,9 +1,11 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, ToastController} from 'ionic-angular';
+import {App, NavController, NavParams, ToastController} from 'ionic-angular';
 import {FidelityCard, User} from "../../types";
 import {DataProvider} from "../../providers/data/data";
 import {Page} from "../../Page";
 import {SelectArticlePage} from "../select-article/select-article";
+import {TabsPage} from "../tabs/tabs";
+import {QrScanPage} from "../qr-scan/qr-scan";
 
 /**
  * Generated class for the SelectFcPage page.
@@ -22,8 +24,8 @@ export class SelectFcPage extends Page {
   fcs: FidelityCard[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dataProvider: DataProvider,
-              protected toaster: ToastController) {
-    super(toaster);
+              protected toaster: ToastController, protected app: App) {
+    super(toaster, app);
     this.fcs = this.objectToList(this.dataProvider.managingBusiness.FCs);
     this.user = this.navParams.get('user');
   }
@@ -36,4 +38,5 @@ export class SelectFcPage extends Page {
   itemTapped(fc: FidelityCard) {
     this.navCtrl.push(SelectArticlePage, {fc: fc, user: this.user});
   }
+
 }

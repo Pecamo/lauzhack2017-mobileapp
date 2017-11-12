@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-buttons start>
-      <button ion-button icon-only (click)="openManager()">
+      <button ion-button icon-only (click)="openManager()" *ngIf="dataProvider.isManager()">
         <ion-icon name="hammer"></ion-icon>
       </button>
     </ion-buttons>

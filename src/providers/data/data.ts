@@ -6,7 +6,7 @@ import * as firebase from 'firebase/app';
 import {AngularFireAuth} from "angularfire2/auth";
 import {Observable} from "rxjs/Observable";
 import {Observer} from "rxjs/Observer";
-import {Business, BusinessInfo, User} from "../../types";
+import {Business, User} from "../../types";
 
 /*
   Generated class for the DataProvider provider.

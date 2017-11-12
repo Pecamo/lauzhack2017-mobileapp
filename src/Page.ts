@@ -1,8 +1,8 @@
-import {ToastController} from "ionic-angular";
+import {App, ToastController} from "ionic-angular";
 
 export class Page {
 
-  constructor(protected toaster: ToastController = null) {
+  constructor(protected toaster: ToastController = null, protected app: App) {
   }
 
   objectToList(o: object): any[] {
@@ -62,5 +62,9 @@ export class Page {
       message: message,
       duration: duration
     }).present();
+  }
+
+  openPage(page: any) {
+    this.app.getRootNav().setRoot(page);
   }
 }

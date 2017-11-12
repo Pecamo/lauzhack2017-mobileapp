@@ -1,14 +1,7 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
+import {App, NavController, NavParams} from 'ionic-angular';
 import {Page} from "../../Page";
 import {FidelityCard, KeyValuePair, User} from "../../types";
-
-/**
- * Generated class for the SelectArticlePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @Component({
   selector: 'page-select-article',
@@ -20,8 +13,8 @@ export class SelectArticlePage extends Page {
   articles: KeyValuePair[];
   user: User;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    super();
+  constructor(public navCtrl: NavController, public navParams: NavParams, protected app: App) {
+    super(null, app);
     this.fc = this.navParams.get('fc');
     this.user = this.navParams.get('user');
     this.articles = this.objectToList(this.fc.articles);

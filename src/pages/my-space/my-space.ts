@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {App, NavController, NavParams} from 'ionic-angular';
+import {DataProvider} from "../../providers/data/data";
+import {Page} from "../../Page";
 
 /**
  * Generated class for the MySpacePage page.
@@ -12,9 +14,10 @@ import { NavController, NavParams } from 'ionic-angular';
   selector: 'page-my-space',
   templateUrl: 'my-space.html',
 })
-export class MySpacePage {
+export class MySpacePage extends Page {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private dataProvider: DataProvider, protected app: App) {
+    super(null, app);
   }
 
   ionViewDidLoad() {
