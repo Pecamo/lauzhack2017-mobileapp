@@ -81,4 +81,8 @@ export class Page {
 
     return ts.map(t => +(t.pts)).reduce((t1, t2) => t1 + t2);
   }
+
+  restart() {
+    document.location.href = 'index.html';
+  }
 }

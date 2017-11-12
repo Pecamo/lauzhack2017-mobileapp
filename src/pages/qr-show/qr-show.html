@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color="primary">
+  <ion-navbar color="primary" (swipe)="restart()">
     <ion-buttons start>
       <button ion-button icon-only (click)="openManager()" *ngIf="dataProvider.isManager()">
         <ion-icon name="hammer"></ion-icon>
