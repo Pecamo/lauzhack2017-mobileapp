@@ -13,15 +13,15 @@
 
 <ion-content>
   <ion-list *ngIf="businesses">
-    <ion-item *ngFor="let b of businesses; let idx = index">
+    <button ion-item *ngFor="let b of businesses; let idx = index" class="businessItem"  (click)="openDetails($event, b)">
       <ion-avatar item-start>
         <img [src]="b.infos.logo" class="ratio">
       </ion-avatar>
       <h2>{{b.infos.name}} ({{b._id}})</h2>
-      <p>{{b.infos.description}}</p>
-      <p><a [href]="b.infos.website">website</a></p>
+      <!--<p class="wrap">{{b.infos.description}}</p>-->
+      <!--<p><a [href]="b.infos.website">website</a></p>-->
       <!--<button (click)="update(idx)">update</button>-->
-    </ion-item>
+    </button>
   </ion-list>
 
 </ion-content>

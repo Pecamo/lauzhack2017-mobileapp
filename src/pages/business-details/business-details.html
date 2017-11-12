@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      {{ business.infos.name }}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h1>{{ business.infos.name }}</h1>
+  <div>
+    <img src="{{ business.infos.logo }}">
+  </div>
+  <p>{{ business.infos.description }}</p>
+
+  <ion-list *ngIf="business" no-border no-padding>
+    <ion-list-header>
+      Locations
+    </ion-list-header>
+    <button ion-item *ngFor="let place of business.infos.coordinates" (click)="openGMaps(place.address)">
+      {{ place.address }}
+    </button>
+
+  </ion-list>
+
+  <a button ion-button href="{{ business.infos.website }}">Website</a>
+</ion-content>

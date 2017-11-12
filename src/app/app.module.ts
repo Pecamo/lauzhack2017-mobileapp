@@ -22,6 +22,7 @@ import {BarcodeScanner} from "@ionic-native/barcode-scanner";
 import {QrScanPage} from "../pages/qr-scan/qr-scan";
 import {SelectFcPage} from "../pages/select-fc/select-fc";
 import {SelectArticlePage} from "../pages/select-article/select-article";
+import {BusinessDetailsPage} from "../pages/business-details/business-details";
 
 // Initialize Firebase
 export const firebaseConfig = {
@@ -45,7 +46,8 @@ export const firebaseConfig = {
     MySpacePage,
     QrScanPage,
     SelectFcPage,
-    SelectArticlePage
+    SelectArticlePage,
+    BusinessDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -67,7 +69,8 @@ export const firebaseConfig = {
     MySpacePage,
     QrScanPage,
     SelectFcPage,
-    SelectArticlePage
+    SelectArticlePage,
+    BusinessDetailsPage
   ],
   providers: [
     StatusBar,
