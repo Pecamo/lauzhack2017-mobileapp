@@ -18,10 +18,10 @@
       Locations
     </ion-list-header>
     <button ion-item *ngFor="let place of business.infos.coordinates" (click)="openGMaps(place.address)">
+      <ion-icon name="locate" color="secondary"></ion-icon>
       {{ place.address }}
     </button>
-
   </ion-list>
 
-  <a button ion-button href="{{ business.infos.website }}">Website</a>
+  <a button ion-button color="secondary" href="{{ business.infos.website }}">Website</a>
 </ion-content>
