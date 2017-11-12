@@ -32,8 +32,6 @@ export class DataProvider {
   public managingBusiness: Business;
   public fbUser: firebase.User;
 
-  private messageWatcher: Subscription;
-
   constructor(private afauth: AngularFireAuth, private toaster: ToastController) {
 
   }
@@ -50,7 +48,6 @@ export class DataProvider {
               this._initMessageWatcher();
             } else {
               observer.next(false);
-              if (this.messageWatcher != null) this.messageWatcher.unsubscribe();
             }
           },
           error => observer.error(error)
@@ -79,7 +76,7 @@ export class DataProvider {
 
   _initMessageWatcher() {
     let first = true;
-    this.messageWatcher = this.messageSub(this.fbUser.uid).subscribe(msg => {
+    this.messageSub(this.fbUser.uid).subscribe(msg => {
       // ignore first update
       if (first) {
         first = false;
@@ -91,7 +88,7 @@ export class DataProvider {
           duration: 3000
         }).present();
       }
-    });
+    }, error => console.log(error));
   }
 
   isLoggedIn(): boolean {
@@ -154,7 +151,7 @@ export class DataProvider {
     return new Observable((observer: Observer<string>) =>
       firebase.database().ref(`users/${uid}/message`)
         .on('value',
-          (s) => observer.next(s.val()),
+          (s) => s != null ? observer.next(s.val()) : null, // if we don't check for null, it breaks, (dunny why)
           error => observer.error(error)
         ));
   }
