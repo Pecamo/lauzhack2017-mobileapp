@@ -28,18 +28,18 @@ export class DataProvider {
 
 
   public managingBusiness: Business;
-  public user: firebase.User;
+  public fbUser: firebase.User;
 
   constructor(private afauth: AngularFireAuth) {
 
   }
 
   init(): Observable<boolean> {
-    return (this.initialized) ? Observable.of(this.user != null) :
+    return (this.initialized) ? Observable.of(this.fbUser != null) :
       new Observable((observer: Observer<any>) => {
         this.afauth.authState.subscribe(
           user => {
-            this.user = user;
+            this.fbUser = user;
             this.initialized = true;
             if (user != null) this._init(observer);
             else observer.next(false);
@@ -51,8 +51,8 @@ export class DataProvider {
 
   _init(observer: Observer<boolean>) {
     this.refs.businesses = firebase.database().ref('businesses');
-    this.refs.user = firebase.database().ref(`users/${this.user.uid}`);
-    firebase.database().ref(`managers/${this.user.uid}`).once('value', m => {
+    this.refs.user = firebase.database().ref(`users/${this.fbUser.uid}`);
+    firebase.database().ref(`managers/${this.fbUser.uid}`).once('value', m => {
       if (m.val() != null) {
         this.refs.businesses.child(m.val().business_id).once('value', b => {
           this.managingBusiness = <Business>b.val();
@@ -111,16 +111,21 @@ export class DataProvider {
   //   });
   // }
 
-  getUserFromUID(uid: string): Observable<User> {
-    console.log("scanned user", uid);
+  getUserFromUID(uid: string, once = true): Observable<User> {
+    let ref = firebase.database().ref(`users/${uid}`);
+    let mapping = (s) => {
+      let u = s.val();
+      if (u != null) u._id = uid;
+      return u;
+    };
+
     return new Observable((observer: Observer<User>) => {
-      firebase.database().ref(`users/${uid}`).once('value',
-        (s) => {
-          let u = s.val();
-          if(u != null) u._id = uid;
-          observer.next(<User>u);
-        }, observer.error
-      );
+      if (once) {
+        ref.once('value', s => observer.next(mapping(s)), observer.error);
+      } else {
+        ref.on('value', s => observer.next(mapping(s)), observer.error);
+      }
     });
   }
+
 }

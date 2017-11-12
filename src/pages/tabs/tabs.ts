@@ -15,15 +15,8 @@ export class TabsPage {
   tab2Root = MySpacePage;
   tab3Root = ExplorePage;
 
-  constructor(public navCtrl: NavController, private dataProvider: DataProvider) {
-    console.log("constructor");
-    dataProvider.init().subscribe(() => {
-      console.log(this.dataProvider.isLoggedIn());
-      if (!this.dataProvider.isLoggedIn()) {
-        this.navCtrl.setRoot(LoginPage);
-        console.log("init done", this.dataProvider.user);
-      }
-    }, error => console.log(error));
+  constructor(public navCtrl: NavController) {
+
   }
 
 }
