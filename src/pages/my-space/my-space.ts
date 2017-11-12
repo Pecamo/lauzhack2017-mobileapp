@@ -37,13 +37,14 @@ export class MySpacePage extends Page {
     );
   }
 
-  minPromo(business_id: string): number {
+  minPromo(business_id: string): any {
     let b = this.businesses[business_id];
     if (b._minPromo) return b._minPromo;
 
     b._minPromo = this.objectToList(b.FCs)
-      .map(fc => fc.promos.map(p => p.value)
-        .reduce((a, b) => a < b ? a : b)).reduce((a, b) => a < b ? a : b);
+      .map(fc => fc.promos ? fc.promos.map(p => p.value)
+        .reduce((a, b) => a < b ? a : b) : Number.MAX_VALUE).reduce((a, b) => a < b ? a : b);
+    if(b._minPromo == Number.MAX_VALUE) b._minPromo = '?';
     return b._minPromo;
   }
 
