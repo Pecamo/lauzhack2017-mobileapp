@@ -7,6 +7,8 @@ import {AngularFireAuth} from "angularfire2/auth";
 import {Observable} from "rxjs/Observable";
 import {Observer} from "rxjs/Observer";
 import {Business, User} from "../../types";
+import {Subscription} from "rxjs/Subscription";
+import {ToastController} from "ionic-angular";
 
 /*
   Generated class for the DataProvider provider.
@@ -30,23 +32,34 @@ export class DataProvider {
   public managingBusiness: Business;
   public fbUser: firebase.User;
 
-  constructor(private afauth: AngularFireAuth) {
+  private messageWatcher: Subscription;
+
+  constructor(private afauth: AngularFireAuth, private toaster: ToastController) {
 
   }
 
   init(): Observable<boolean> {
     return (this.initialized) ? Observable.of(this.fbUser != null) :
-      new Observable((observer: Observer<any>) => {
-        this.afauth.authState.subscribe(
-          user => {
+      new Observable((observer: Observer<boolean>) => {
+        this.loginSub().subscribe(
+          (user: firebase.User) => {
             this.fbUser = user;
             this.initialized = true;
-            if (user != null) this._init(observer);
-            else observer.next(false);
+            if (user != null) {
+              this._init(observer);
+              this._initMessageWatcher();
+            } else {
+              observer.next(false);
+              if (this.messageWatcher != null) this.messageWatcher.unsubscribe();
+            }
           },
           error => observer.error(error)
         );
       });
+  }
+
+  public loginSub(): Observable<firebase.User> {
+    return this.afauth.authState;
   }
 
   _init(observer: Observer<boolean>) {
@@ -62,15 +75,24 @@ export class DataProvider {
         observer.next(true);
       }
     });
-    // create user if not exist
-    /*this.refs.user.once('value', u => {
-      if (u.val() == null) {
-        u.ref.update({'_id': this.user.uid});
-        console.log("created user in firebase");
-      }
-    });*/
   }
 
+  _initMessageWatcher() {
+    let first = true;
+    this.messageWatcher = this.messageSub(this.fbUser.uid).subscribe(msg => {
+      // ignore first update
+      if (first) {
+        first = false;
+        return;
+      } else if (msg != null) {
+        // show toast
+        this.toaster.create({
+          message: msg,
+          duration: 3000
+        }).present();
+      }
+    });
+  }
 
   isLoggedIn(): boolean {
     return this.afauth.auth.currentUser != null;
@@ -126,6 +148,15 @@ export class DataProvider {
         ref.on('value', s => observer.next(mapping(s)), observer.error);
       }
     });
+  }
+
+  messageSub(uid: string): Observable<string> {
+    return new Observable((observer: Observer<string>) =>
+      firebase.database().ref(`users/${uid}/message`)
+        .on('value',
+          (s) => observer.next(s.val()),
+          error => observer.error(error)
+        ));
   }
 
 }
