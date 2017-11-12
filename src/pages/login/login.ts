@@ -7,7 +7,7 @@ import {AngularFireAuth} from "angularfire2/auth";
 import * as firebase from 'firebase/app';
 import {TabsPage} from "../tabs/tabs";
 import {Page} from "../../Page";
-import {QRShowPage} from "../qr-show/qr-show";
+import {SplashScreen} from "@ionic-native/splash-screen";
 
 /**
  * Generated class for the LoginPage page.
@@ -26,12 +26,13 @@ export class LoginPage extends Page {
   loading: Loading = null;
 
   constructor(public navCtrl: NavController, public afauth: AngularFireAuth, public toastCtrl: ToastController, private platform: Platform, protected app: App,
-              public loadingCtrl: LoadingController) {
+              public loadingCtrl: LoadingController, private splashScreen: SplashScreen) {
     super(toastCtrl, app);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+    this.splashScreen.hide();
   }
 
   loginWithGoogle() {
