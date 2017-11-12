@@ -4,6 +4,7 @@ import {Page} from "../../Page";
 import {FidelityCard, KeyValuePair, User} from "../../types";
 import {DataProvider} from "../../providers/data/data";
 import {SelectPromoPage} from "../select-promo/select-promo";
+import {QrScanPage} from "../qr-scan/qr-scan";
 
 @Component({
   selector: 'page-select-article',
@@ -19,21 +20,26 @@ export class SelectArticlePage extends Page {
               private dataProvider: DataProvider) {
     super(null, app);
     this.fc = this.navParams.get('fc');
-    this.user = this.navParams.get('user');
+    this.dataProvider.getUserFromUID(this.navParams.get('user_id'), false).subscribe(
+      u => this.user = u, error => this.showToast(error)
+    );
     if (this.fc.articles) {
       this.articles = this.objectToList(this.fc.articles);
     }
   }
 
   isPromoPossible(): boolean {
-    if (!this.fc.promos || this.fc.promos.length == 0) return false;
+    if (!this.user || !this.fc.promos || this.fc.promos.length == 0) return false;
     const pts = this.computeTransactionSum(this.user.FCs[this.fc._id].transactions);
-    console.log("pts", pts);
     return Object.keys(this.fc.promos).map(p => this.fc.promos[p].value <= pts).length > 0;
   }
 
   goToPromo() {
-    this.navCtrl.push(SelectPromoPage, {fc: this.fc, user: this.user});
+    this.navCtrl.push(SelectPromoPage, {fc: this.fc, user_id: this.user._id});
+  }
+
+  finish() {
+    this.openPage(QrScanPage);
   }
 
   itemTapped(article: KeyValuePair) {
