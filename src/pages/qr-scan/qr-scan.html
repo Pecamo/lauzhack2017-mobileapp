@@ -6,7 +6,7 @@
       </button>
     </ion-buttons>
     <ion-title>
-      QR Scan
+      Scan an user's QR
     </ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="dataProvider.logout()">
@@ -18,12 +18,12 @@
 
 
 <ion-content padding>
-  <button ion-button full icon-left (click)="scanCode()" color="secondary">
+  <button ion-button full icon-left large (click)="scanCode()" color="secondary" class="big">
     <ion-icon name="qr-scanner"></ion-icon>
     Scan User Badge
   </button>
 
-  <ion-item>
+  <ion-item class="nopadding">
     <ion-input type="text" [(ngModel)]="manualUid" placeholder="User Badge"
                spellcheck="false" autocomplete="false"></ion-input>
   </ion-item>
