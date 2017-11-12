@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="manager">
     <ion-title>
-      Article to debit
+      Promo !
     </ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="dataProvider.logout()">
@@ -13,21 +13,17 @@
 
 
 <ion-content>
-  <div *ngIf="articles">
-    <ion-card *ngFor="let article of articles; let i = index" (click)="itemTapped(article)">
-      <button ion-item [ngStyle]="randomColor(i, articles.length)">
+  <div *ngIf="promos">
+    <ion-card *ngFor="let promo of promos; let i = index" (click)="itemTapped(promo)">
+      <button ion-item [ngStyle]="randomColor(i, promos.length)" [disabled]="promo.value > userPts">
         <ion-card-header text-wrap>
-          {{article.key}}
+          {{promo.key}}
         </ion-card-header>
         <ion-card-content>
-          +{{article.value}} points
+          -{{promo.value}} points
         </ion-card-content>
       </button>
     </ion-card>
   </div>
-
-  <ion-fab right bottom *ngIf="isPromoPossible()">
-    <button ion-fab color="light" (click)="goToPromo()"><ion-icon name="arrow-dropleft"></ion-icon></button>
-  </ion-fab>
 
 </ion-content>

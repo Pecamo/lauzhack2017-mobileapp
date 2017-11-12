@@ -23,6 +23,7 @@ import {QrScanPage} from "../pages/qr-scan/qr-scan";
 import {SelectFcPage} from "../pages/select-fc/select-fc";
 import {SelectArticlePage} from "../pages/select-article/select-article";
 import {BusinessDetailsPage} from "../pages/business-details/business-details";
+import {SelectPromoPage} from "../pages/select-promo/select-promo";
 
 // Initialize Firebase
 export const firebaseConfig = {
@@ -47,7 +48,8 @@ export const firebaseConfig = {
     QrScanPage,
     SelectFcPage,
     SelectArticlePage,
-    BusinessDetailsPage
+    BusinessDetailsPage,
+    SelectPromoPage
   ],
   imports: [
     BrowserModule,
@@ -70,7 +72,8 @@ export const firebaseConfig = {
     QrScanPage,
     SelectFcPage,
     SelectArticlePage,
-    BusinessDetailsPage
+    BusinessDetailsPage,
+    SelectPromoPage
   ],
   providers: [
     StatusBar,
