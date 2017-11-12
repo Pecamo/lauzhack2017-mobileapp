@@ -15,7 +15,10 @@
   <div *ngIf="fcs">
     <ion-list *ngIf="businesses">
       <button ion-item *ngFor="let fc of fcs" (click)="openDetails($event, businesses[fc.business_id])">
-        <h2>{{businesses[fc.business_id].infos.name}} ({{businesses[fc.business_id].FCs[fc.fc_id].name}})</h2>
+        <h2>
+          <span class="b">{{businesses[fc.business_id].infos.name}}</span>
+          <span class="fc">{{businesses[fc.business_id].FCs[fc.fc_id].name}}</span>
+        </h2>
         <ion-badge>{{computeTransactionSum(fc.transactions)}}/{{minPromo(fc.business_id)}} Points</ion-badge>
         <!--<button (click)="update(idx)">update</button>-->
         <ion-icon name="arrow-forward" item-right style="color: grey"></ion-icon>

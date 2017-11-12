@@ -1,3 +1,15 @@
 page-my-space {
+  ion-label h2 {
+    margin-bottom: 5px;
 
+    span.b {
+      font-weight: 700;
+      font-size: 1.4em;
+    }
+    span.fc {
+      font-size: .9em;
+      color: #888;
+      font-weight: normal;
+    }
+  }
 }
