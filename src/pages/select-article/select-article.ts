@@ -30,7 +30,10 @@ export class SelectArticlePage extends Page {
 
   itemTapped(article: KeyValuePair) {
     this.dataProvider.addTransaction(this.user, this.fc, article.value);
+  }
 
+  customValue(value: number) {
+    this.dataProvider.addTransaction(this.user, this.fc, value);
   }
 
 }
