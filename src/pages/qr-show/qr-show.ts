@@ -15,7 +15,7 @@ export class QRShowPage extends Page {
 
   constructor(public navCtrl: NavController, private dataProvider: DataProvider, protected app: App) {
     super(null, app);
-    this.createdCode = this.dataProvider.user.uid;
+    this.createdCode = this.dataProvider.fbUser.uid;
   }
 
   openManager() {

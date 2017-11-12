@@ -7,6 +7,8 @@ import {AngularFireAuth} from "angularfire2/auth";
 import {Observable} from "rxjs/Observable";
 import {Observer} from "rxjs/Observer";
 import {Business, User} from "../../types";
+import {Subscription} from "rxjs/Subscription";
+import {ToastController} from "ionic-angular";
 
 /*
   Generated class for the DataProvider provider.
@@ -28,31 +30,39 @@ export class DataProvider {
 
 
   public managingBusiness: Business;
-  public user: firebase.User;
+  public fbUser: firebase.User;
 
-  constructor(private afauth: AngularFireAuth) {
+  constructor(private afauth: AngularFireAuth, private toaster: ToastController) {
 
   }
 
   init(): Observable<boolean> {
-    return (this.initialized) ? Observable.of(this.user != null) :
-      new Observable((observer: Observer<any>) => {
-        this.afauth.authState.subscribe(
-          user => {
-            this.user = user;
+    return (this.initialized) ? Observable.of(this.fbUser != null) :
+      new Observable((observer: Observer<boolean>) => {
+        this.loginSub().subscribe(
+          (user: firebase.User) => {
+            this.fbUser = user;
             this.initialized = true;
-            if (user != null) this._init(observer);
-            else observer.next(false);
+            if (user != null) {
+              this._init(observer);
+              this._initMessageWatcher();
+            } else {
+              observer.next(false);
+            }
           },
           error => observer.error(error)
         );
       });
   }
 
+  public loginSub(): Observable<firebase.User> {
+    return this.afauth.authState;
+  }
+
   _init(observer: Observer<boolean>) {
     this.refs.businesses = firebase.database().ref('businesses');
-    this.refs.user = firebase.database().ref(`users/${this.user.uid}`);
-    firebase.database().ref(`managers/${this.user.uid}`).once('value', m => {
+    this.refs.user = firebase.database().ref(`users/${this.fbUser.uid}`);
+    firebase.database().ref(`managers/${this.fbUser.uid}`).once('value', m => {
       if (m.val() != null) {
         this.refs.businesses.child(m.val().business_id).once('value', b => {
           this.managingBusiness = <Business>b.val();
@@ -62,15 +72,24 @@ export class DataProvider {
         observer.next(true);
       }
     });
-    // create user if not exist
-    /*this.refs.user.once('value', u => {
-      if (u.val() == null) {
-        u.ref.update({'_id': this.user.uid});
-        console.log("created user in firebase");
-      }
-    });*/
   }
 
+  _initMessageWatcher() {
+    let first = true;
+    this.messageSub(this.fbUser.uid).subscribe(msg => {
+      // ignore first update
+      if (first) {
+        first = false;
+        return;
+      } else if (msg != null) {
+        // show toast
+        this.toaster.create({
+          message: msg,
+          duration: 3000
+        }).present();
+      }
+    }, error => console.log(error));
+  }
 
   isLoggedIn(): boolean {
     return this.afauth.auth.currentUser != null;
@@ -111,16 +130,30 @@ export class DataProvider {
   //   });
   // }
 
-  getUserFromUID(uid: string): Observable<User> {
-    console.log("scanned user", uid);
+  getUserFromUID(uid: string, once = true): Observable<User> {
+    let ref = firebase.database().ref(`users/${uid}`);
+    let mapping = (s) => {
+      let u = s.val();
+      if (u != null) u._id = uid;
+      return u;
+    };
+
     return new Observable((observer: Observer<User>) => {
-      firebase.database().ref(`users/${uid}`).once('value',
-        (s) => {
-          let u = s.val();
-          if(u != null) u._id = uid;
-          observer.next(<User>u);
-        }, observer.error
-      );
+      if (once) {
+        ref.once('value', s => observer.next(mapping(s)), observer.error);
+      } else {
+        ref.on('value', s => observer.next(mapping(s)), observer.error);
+      }
     });
   }
+
+  messageSub(uid: string): Observable<string> {
+    return new Observable((observer: Observer<string>) =>
+      firebase.database().ref(`users/${uid}/message`)
+        .on('value',
+          (s) => s != null ? observer.next(s.val()) : null, // if we don't check for null, it breaks, (dunny why)
+          error => observer.error(error)
+        ));
+  }
+
 }

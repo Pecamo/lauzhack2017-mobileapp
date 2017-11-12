@@ -31,7 +31,7 @@ export class ExplorePage extends Page {
       console.log(b);
     });
 
-    this.dataProvider.getUserFromUID(this.dataProvider.user.uid).subscribe(u => this.user = u);
+    this.dataProvider.getUserFromUID(this.dataProvider.fbUser.uid).subscribe(u => this.user = u);
   }
 
   update(idx: number) {
