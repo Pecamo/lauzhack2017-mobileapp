@@ -40,15 +40,18 @@ export class LoginPage extends Page {
   }
 
   loginWithFacebook() {
-    this._login(new firebase.auth.FacebookAuthProvider());
+    this.showToast("Login with Facebook is currently disabled.");
+    // this._login(new firebase.auth.FacebookAuthProvider());
   }
 
   loginWithTwitter() {
-    this._login(new firebase.auth.TwitterAuthProvider());
+    this.showToast("Login with Twitter is currently disabled.");
+    // this._login(new firebase.auth.TwitterAuthProvider());
   }
 
   loginWithEmail() {
-    this._login(new firebase.auth.EmailAuthProvider());
+    this.showToast("Login with e-mail is currently disabled.");
+    // this._login(new firebase.auth.EmailAuthProvider());
   }
 
 
