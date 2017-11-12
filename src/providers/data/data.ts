@@ -46,6 +46,7 @@ export class DataProvider {
             if (user != null) {
               this._init(observer);
               this._initMessageWatcher();
+              this._createUserIfNotExists();
             } else {
               observer.next(false);
             }
@@ -57,6 +58,15 @@ export class DataProvider {
 
   public loginSub(): Observable<firebase.User> {
     return this.afauth.authState;
+  }
+
+  _createUserIfNotExists() {
+    this.refs.user.once('value', u => {
+      if (u.val() == null) {
+        u.ref.update({'_id': this.fbUser.uid});
+        console.log("created user in firebase");
+      }
+    });
   }
 
   _init(observer: Observer<boolean>) {
@@ -75,13 +85,8 @@ export class DataProvider {
   }
 
   _initMessageWatcher() {
-    let first = true;
     this.messageSub(this.fbUser.uid).subscribe(msg => {
-      // ignore first update
-      if (first) {
-        first = false;
-        return;
-      } else if (msg != null) {
+      if (msg != null) {
         // show toast
         this.toaster.create({
           message: msg,
@@ -148,12 +153,42 @@ export class DataProvider {
   }
 
   messageSub(uid: string): Observable<string> {
+    let first = true;
     return new Observable((observer: Observer<string>) =>
       firebase.database().ref(`users/${uid}/message`)
         .on('value',
-          (s) => s != null ? observer.next(s.val()) : null, // if we don't check for null, it breaks, (dunny why)
+          (s) => {
+            if (s == null) {
+              // if we don't check for null, it breaks, (dunny why)
+            } else if (first) {
+              first = false;
+            } else if (s.val() && s.val().message) {
+              observer.next(s.val().message);
+            }
+          },
           error => observer.error(error)
         ));
+  }
+
+  addTransaction(user: User, fcName: string, pts: number, message = null) {
+    const key = `${this.managingBusiness.infos.name}_${fcName}`;
+    const time = new Date().getTime();
+    const rootRef = firebase.database().ref(`users/${user._id}`);
+
+    const messageObject = {
+      date: time,
+      message: message != null ? message : `Got ${pts} from ${this.managingBusiness.infos.name} (${fcName})`
+    };
+
+    rootRef.child(`FCs/${key}/${time}`).set({date: time, pts: pts});
+    rootRef.child('message').set(messageObject);
+  }
+
+  _createMessage(message): object {
+    return {
+      date: new Date().getTime(),
+      message: message
+    }
   }
 
 }

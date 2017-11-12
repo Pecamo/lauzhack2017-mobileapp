@@ -13,14 +13,16 @@
 
 
 <ion-content>
-  <ion-card *ngFor="let article of articles; let i = index" (click)="itemTapped(article)">
-    <button ion-item [ngStyle]="randomColor(i, articles.length)">
-      <ion-card-header text-wrap>
-        {{article.key}}
-      </ion-card-header>
-      <ion-card-content>
-        +{{article.value}} points
-      </ion-card-content>
-    </button>
-  </ion-card>
+  <div *ngIf="articles">
+    <ion-card *ngFor="let article of articles; let i = index" (click)="itemTapped(article)">
+      <button ion-item [ngStyle]="randomColor(i, articles.length)">
+        <ion-card-header text-wrap>
+          {{article.key}}
+        </ion-card-header>
+        <ion-card-content>
+          +{{article.value}} points
+        </ion-card-content>
+      </button>
+    </ion-card>
+  </div>
 </ion-content>

@@ -15,7 +15,6 @@ export class ExplorePage extends Page {
 
   constructor(public navCtrl: NavController, private dataProvider: DataProvider, protected app: App) {
     super(null, app);
-    dataProvider.init().subscribe(b => this._init());
   }
 
   _init() {

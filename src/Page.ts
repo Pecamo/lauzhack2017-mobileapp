@@ -6,6 +6,7 @@ export class Page {
   }
 
   objectToList(o: object): any[] {
+    if (!o) return [];
     if (o instanceof Array) return o;
     return Object.keys(o).map(k => o[k]);
   }

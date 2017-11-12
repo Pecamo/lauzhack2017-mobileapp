@@ -20,8 +20,8 @@
       </ion-card-header>
       <ion-card-content text-wrap>
         <p>{{fc.description}}</p>
-        <ion-badge color="light" item-end>{{fc.articles.length}} articles</ion-badge>
-        <ion-badge color="light" item-end>{{fc.promos.length}} promos</ion-badge>
+        <ion-badge color="light" item-end>{{getLength(fc.articles)}} articles</ion-badge>
+        <ion-badge color="light" item-end>{{getLength(fc.promos)}} promos</ion-badge>
       </ion-card-content>
     </button>
   </ion-card>
