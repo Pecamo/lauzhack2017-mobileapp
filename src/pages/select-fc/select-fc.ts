@@ -34,6 +34,9 @@ export class SelectFcPage extends Page {
 
   }
 
+  getLength(o: object){
+    return o == null ? 0 : Object.keys(o).length;
+  }
 
   itemTapped(fc: FidelityCard) {
     this.navCtrl.push(SelectArticlePage, {fc: fc, user: this.user});

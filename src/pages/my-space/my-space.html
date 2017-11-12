@@ -11,6 +11,14 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content>
+  <div *ngIf="fcs">
+    <ion-list *ngIf="businesses">
+      <ion-item *ngFor="let fc of fcs">
+        <h2>{{businesses[fc.business_id].infos.name}} ({{businesses[fc.business_id].FCs[fc.fc_id].name}})</h2>
+        <ion-badge>{{computeTransactionSum(fc.transactions)}} Points</ion-badge>
+        <!--<button (click)="update(idx)">update</button>-->
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>

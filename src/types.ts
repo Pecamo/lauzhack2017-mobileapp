@@ -20,6 +20,7 @@ export interface BusinessInfo {
 }
 
 export interface FidelityCard {
+  _id: string;
   name: string;
   description: string;
   articles: KeyValuePair[];
@@ -27,6 +28,7 @@ export interface FidelityCard {
 }
 
 export interface Business {
+  _id: string;
   infos: BusinessInfo;
   FCs: FidelityCard[];
 }

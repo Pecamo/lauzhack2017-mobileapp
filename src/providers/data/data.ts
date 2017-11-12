@@ -6,8 +6,7 @@ import * as firebase from 'firebase/app';
 import {AngularFireAuth} from "angularfire2/auth";
 import {Observable} from "rxjs/Observable";
 import {Observer} from "rxjs/Observer";
-import {Business, User} from "../../types";
-import {Subscription} from "rxjs/Subscription";
+import {Business, FidelityCard, User} from "../../types";
 import {ToastController} from "ionic-angular";
 
 /*
@@ -46,6 +45,7 @@ export class DataProvider {
             if (user != null) {
               this._init(observer);
               this._initMessageWatcher();
+              this._createUserIfNotExists();
             } else {
               observer.next(false);
             }
@@ -59,6 +59,15 @@ export class DataProvider {
     return this.afauth.authState;
   }
 
+  _createUserIfNotExists() {
+    this.refs.user.once('value', u => {
+      if (u.val() == null) {
+        u.ref.update({'_id': this.fbUser.uid});
+        console.log("created user in firebase");
+      }
+    });
+  }
+
   _init(observer: Observer<boolean>) {
     this.refs.businesses = firebase.database().ref('businesses');
     this.refs.user = firebase.database().ref(`users/${this.fbUser.uid}`);
@@ -66,6 +75,7 @@ export class DataProvider {
       if (m.val() != null) {
         this.refs.businesses.child(m.val().business_id).once('value', b => {
           this.managingBusiness = <Business>b.val();
+          this.managingBusiness._id = b.key;
           observer.next(true);
         });
       } else {
@@ -75,13 +85,8 @@ export class DataProvider {
   }
 
   _initMessageWatcher() {
-    let first = true;
     this.messageSub(this.fbUser.uid).subscribe(msg => {
-      // ignore first update
-      if (first) {
-        first = false;
-        return;
-      } else if (msg != null) {
+      if (msg != null) {
         // show toast
         this.toaster.create({
           message: msg,
@@ -106,15 +111,8 @@ export class DataProvider {
   businessSub(): Observable<Business[]> {
     return new Observable((observer: Observer<Business[]>) => {
       this.refs.businesses.on('value',
-        (s) => {
-          let bs = s.val();
-          observer.next(Object.keys(bs).map(k => {
-            let obj = bs[k];
-            obj._id = k;
-            return <Business>obj;
-          }));
-        }
-      );
+        (s) => observer.next(s.val())
+      )
     });
   }
 
@@ -148,12 +146,53 @@ export class DataProvider {
   }
 
   messageSub(uid: string): Observable<string> {
+    let first = true;
     return new Observable((observer: Observer<string>) =>
       firebase.database().ref(`users/${uid}/message`)
         .on('value',
-          (s) => s != null ? observer.next(s.val()) : null, // if we don't check for null, it breaks, (dunny why)
+          (s) => {
+            if (s == null) {
+              // if we don't check for null, it breaks, (dunny why)
+            } else if (first) {
+              first = false;
+            } else if (s.val() && s.val().message) {
+              observer.next(s.val().message);
+            }
+          },
           error => observer.error(error)
         ));
+  }
+
+  addTransaction(user: User, fc: FidelityCard, pts: number, message = null) {
+    const time = new Date().getTime();
+    const rootRef = firebase.database().ref(`users/${user._id}`);
+    const trans = {date: time, pts: pts};
+    const messageObject = {
+      date: time,
+      message: message != null ? message : `Got ${pts} from ${this.managingBusiness.infos.name} (${fc.name})`
+    };
+
+    rootRef.child(`FCs/${fc._id}`).once('value', snap => {
+      let result = snap.val();
+      if (result == null) {
+        snap.ref.set({
+          fc_id: fc._id,
+          business_id: this.managingBusiness._id,
+          transactions: [trans]
+        });
+      } else {
+        snap.ref.child('transactions').push(trans)
+      }
+    });
+
+    rootRef.child('message').set(messageObject);
+  }
+
+  _createMessage(message): object {
+    return {
+      date: new Date().getTime(),
+      message: message
+    }
   }
 
 }

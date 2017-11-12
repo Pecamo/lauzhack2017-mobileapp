@@ -6,8 +6,13 @@ export class Page {
   }
 
   objectToList(o: object): any[] {
+    if (!o) return [];
     if (o instanceof Array) return o;
-    return Object.keys(o).map(k => o[k]);
+    return Object.keys(o).map(k => {
+      let item = o[k];
+      item._id = k;
+      return item;
+    });
   }
 
   randomColor(index: number, max: number = 10) {
@@ -66,5 +71,14 @@ export class Page {
 
   openPage(page: any) {
     this.app.getRootNav().setRoot(page);
+  }
+
+  computeTransactionSum(transactions: any) {
+    let ts = transactions;
+    if (ts instanceof Object) {
+      ts = this.objectToList(ts);
+    }
+
+    return ts.map(t => t.pts).reduce((t1, t2) => t1 + t2);
   }
 }
