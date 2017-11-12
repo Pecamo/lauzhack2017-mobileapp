@@ -79,6 +79,6 @@ export class Page {
       ts = this.objectToList(ts);
     }
 
-    return ts.reduce((acc, t) => acc + t.value, 0);
+    return ts.map(t => t.pts).reduce((t1, t2) => t1 + t2);
   }
 }

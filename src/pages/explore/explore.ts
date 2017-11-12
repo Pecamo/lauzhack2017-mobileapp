@@ -11,32 +11,12 @@ import {Page} from "../../Page";
 export class ExplorePage extends Page {
 
   businesses: Business[];
-  user: User;
 
   constructor(public navCtrl: NavController, private dataProvider: DataProvider, protected app: App) {
     super(null, app);
-  }
-
-  _init() {
-    // this.dataProvider.refs.businesses.on('value',
-    //   (s) => {
-    //     this.businesses = s.val();
-    //     console.log(JSON.stringify(this.businesses))
-    //   }
-    // );
-
     this.dataProvider.businessSub().subscribe(b => {
-      this.businesses = b;
-      console.log(b);
+      this.businesses = this.objectToList(b);
+      console.log(this.businesses);
     });
-
-    this.dataProvider.getUserFromUID(this.dataProvider.fbUser.uid).subscribe(u => this.user = u);
   }
-
-  update(idx: number) {
-    // const upd = this.businesses[idx];
-    // upd.infos.name = "Holy Cow";
-    // this.dataProvider.refs.businesses.child(upd._id).update(upd);
-  }
-
 }

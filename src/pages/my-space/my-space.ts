@@ -2,7 +2,9 @@ import {Component} from '@angular/core';
 import {App, NavController, NavParams} from 'ionic-angular';
 import {DataProvider} from "../../providers/data/data";
 import {Page} from "../../Page";
-import {Business, User} from "../../types";
+import {Business, FcEntry, User} from "../../types";
+import {Observable} from "rxjs/Observable";
+import {Observer} from "rxjs/Observer";
 
 /**
  * Generated class for the MySpacePage page.
@@ -17,19 +19,22 @@ import {Business, User} from "../../types";
 })
 export class MySpacePage extends Page {
 
-  user: User;
+  fcs: FcEntry[];
   businesses: Business[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private dataProvider: DataProvider, protected app: App) {
     super(null, app);
+
     this.dataProvider.getUserFromUID(this.dataProvider.fbUser.uid, false).subscribe(
-      u => this.user = u, error => this.showToast(error)
+      u => this.fcs = this.objectToList(u.FCs), error => this.showToast(error)
     );
     this.dataProvider.businessSub().subscribe(
-      bs => this.businesses = bs, error => this.showToast(error)
+      bs => {
+        this.businesses = bs;
+        console.log(bs);
+      }, error => this.showToast(error)
     );
   }
-
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MySpacePage');

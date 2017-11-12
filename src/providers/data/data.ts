@@ -111,15 +111,8 @@ export class DataProvider {
   businessSub(): Observable<Business[]> {
     return new Observable((observer: Observer<Business[]>) => {
       this.refs.businesses.on('value',
-        (s) => {
-          let bs = s.val();
-          observer.next(Object.keys(bs).map(k => {
-            let obj = bs[k];
-            obj._id = k;
-            return <Business>obj;
-          }));
-        }
-      );
+        (s) => observer.next(s.val())
+      )
     });
   }
 
@@ -182,7 +175,7 @@ export class DataProvider {
     rootRef.child(`FCs/${fc._id}`).once('value', snap => {
       let result = snap.val();
       if (result == null) {
-       snap.ref.set({
+        snap.ref.set({
           fc_id: fc._id,
           business_id: this.managingBusiness._id,
           transactions: [trans]
