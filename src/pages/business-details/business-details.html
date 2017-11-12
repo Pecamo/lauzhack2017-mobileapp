@@ -13,7 +13,17 @@
   </div>
   <p>{{ business.infos.description }}</p>
 
-  <ion-list *ngIf="business" no-border no-padding>
+  <ion-list no-border no-padding>
+    <ion-list-header>
+      Promotions
+    </ion-list-header>
+      <ion-item *ngFor="let promo of getPromos(business)">
+        <ion-icon name="pricetag" style="color: grey"></ion-icon>
+        {{ promo.key }} for {{promo.value}} points
+      </ion-item>
+  </ion-list>
+
+  <ion-list no-border no-padding>
     <ion-list-header>
       Locations
     </ion-list-header>
