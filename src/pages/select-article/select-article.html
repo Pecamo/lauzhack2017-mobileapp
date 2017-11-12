@@ -40,4 +40,9 @@
       </ion-item>
     </ion-card>
   </div>
+
+  <ion-fab right bottom *ngIf="isPromoPossible()">
+    <button ion-fab color="light" (click)="goToPromo()"><ion-icon name="arrow-dropleft"></ion-icon></button>
+  </ion-fab>
+
 </ion-content>

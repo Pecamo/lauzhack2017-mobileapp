@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar color="manager">
+    <ion-title>
+      Promo !
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="dataProvider.logout()">
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <div *ngIf="promos">
+    <ion-card *ngFor="let promo of promos; let i = index" (click)="itemTapped(promo)">
+      <button ion-item [ngStyle]="randomColor(i, promos.length)" [disabled]="promo.value > userPts">
+        <ion-card-header text-wrap>
+          {{promo.key}}
+        </ion-card-header>
+        <ion-card-content>
+          -{{promo.value}} points
+        </ion-card-content>
+      </button>
+    </ion-card>
+  </div>
+
+</ion-content>
