@@ -6,8 +6,7 @@ import * as firebase from 'firebase/app';
 import {AngularFireAuth} from "angularfire2/auth";
 import {Observable} from "rxjs/Observable";
 import {Observer} from "rxjs/Observer";
-import {Business, User} from "../../types";
-import {Subscription} from "rxjs/Subscription";
+import {Business, FidelityCard, User} from "../../types";
 import {ToastController} from "ionic-angular";
 
 /*
@@ -76,6 +75,7 @@ export class DataProvider {
       if (m.val() != null) {
         this.refs.businesses.child(m.val().business_id).once('value', b => {
           this.managingBusiness = <Business>b.val();
+          this.managingBusiness._id = b.key;
           observer.next(true);
         });
       } else {
@@ -170,17 +170,28 @@ export class DataProvider {
         ));
   }
 
-  addTransaction(user: User, fcName: string, pts: number, message = null) {
-    const key = `${this.managingBusiness.infos.name}_${fcName}`;
+  addTransaction(user: User, fc: FidelityCard, pts: number, message = null) {
     const time = new Date().getTime();
     const rootRef = firebase.database().ref(`users/${user._id}`);
-
+    const trans = {date: time, pts: pts};
     const messageObject = {
       date: time,
-      message: message != null ? message : `Got ${pts} from ${this.managingBusiness.infos.name} (${fcName})`
+      message: message != null ? message : `Got ${pts} from ${this.managingBusiness.infos.name} (${fc.name})`
     };
 
-    rootRef.child(`FCs/${key}/${time}`).set({date: time, pts: pts});
+    rootRef.child(`FCs/${fc._id}`).once('value', snap => {
+      let result = snap.val();
+      if (result == null) {
+       snap.ref.set({
+          fc_id: fc._id,
+          business_id: this.managingBusiness._id,
+          transactions: [trans]
+        });
+      } else {
+        snap.ref.child('transactions').push(trans)
+      }
+    });
+
     rootRef.child('message').set(messageObject);
   }
 

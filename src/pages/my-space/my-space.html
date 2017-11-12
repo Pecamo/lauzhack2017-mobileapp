@@ -11,6 +11,16 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content>
+  <ion-list *ngIf="user && user.FCs">
+    <ion-item *ngFor="let fc of user.FCs; let idx = index">
+      <ion-avatar item-start>
+        <img [src]="b.infos.logo" class="ratio">
+      </ion-avatar>
+      <h2>{{b.infos.name}} ({{b._id}})</h2>
+      <p>{{b.infos.description}}</p>
+      <p><a [href]="b.infos.website">website</a></p>
+      <!--<button (click)="update(idx)">update</button>-->
+    </ion-item>
+  </ion-list>
 </ion-content>
