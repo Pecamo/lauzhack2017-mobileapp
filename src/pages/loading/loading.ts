@@ -19,9 +19,6 @@ export class LoadingPage extends Page {
 
   constructor(public navCtrl: NavController, private dataProvider: DataProvider, protected app: App) {
     super(null, app);
-    dataProvider.init().subscribe(isLoggedIn => {
-      this.navCtrl.setRoot(isLoggedIn ? TabsPage : LoginPage);
-      console.log("logged", isLoggedIn);
-    });
+
   }
 }
