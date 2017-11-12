@@ -2,9 +2,7 @@ import {Component} from '@angular/core';
 import {App, NavController, NavParams} from 'ionic-angular';
 import {DataProvider} from "../../providers/data/data";
 import {Page} from "../../Page";
-import {Business, FcEntry, User} from "../../types";
-import {Observable} from "rxjs/Observable";
-import {Observer} from "rxjs/Observer";
+import {Business, FcEntry} from "../../types";
 import {BusinessDetailsPage} from "../business-details/business-details";
 
 /**

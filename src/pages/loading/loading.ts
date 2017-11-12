@@ -1,8 +1,5 @@
 import {Component} from '@angular/core';
 import {App, NavController} from 'ionic-angular';
-import {DataProvider} from "../../providers/data/data";
-import {TabsPage} from "../tabs/tabs";
-import {LoginPage} from "../login/login";
 import {Page} from "../../Page";
 
 /**

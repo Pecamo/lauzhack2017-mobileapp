@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {App, NavController, NavParams} from 'ionic-angular';
+import {App, NavController, NavParams, ToastController} from 'ionic-angular';
 import {Page} from "../../Page";
 import {FidelityCard, KeyValuePair, User} from "../../types";
 import {DataProvider} from "../../providers/data/data";
@@ -17,8 +17,8 @@ export class SelectArticlePage extends Page {
   user: User;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, protected app: App,
-              private dataProvider: DataProvider) {
-    super(null, app);
+              private dataProvider: DataProvider, protected toaster: ToastController) {
+    super(toaster, app);
     this.fc = this.navParams.get('fc');
     this.dataProvider.getUserFromUID(this.navParams.get('user_id'), false).subscribe(
       u => this.user = u, error => this.showToast(error)
@@ -44,6 +44,7 @@ export class SelectArticlePage extends Page {
 
   itemTapped(article: KeyValuePair) {
     this.dataProvider.addTransaction(this.user, this.fc, article.value);
+    this.showToast("Article added !");
   }
 
   customValue(value: number) {

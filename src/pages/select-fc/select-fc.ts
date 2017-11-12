@@ -1,11 +1,10 @@
 import {Component} from '@angular/core';
 import {App, NavController, NavParams, ToastController} from 'ionic-angular';
-import {FidelityCard, User} from "../../types";
+import {FidelityCard} from "../../types";
 import {DataProvider} from "../../providers/data/data";
 import {Page} from "../../Page";
 import {SelectArticlePage} from "../select-article/select-article";
-import {TabsPage} from "../tabs/tabs";
-import {QrScanPage} from "../qr-scan/qr-scan";
+
 
 /**
  * Generated class for the SelectFcPage page.
