@@ -45,7 +45,12 @@ export class SelectPromoPage extends Page {
   }
 
   itemTapped(promos: KeyValuePair) {
-    this.dataProvider.addTransaction(this.user, this.fc, -promos.value);
+    if (promos.value <= this.userPts) {
+      this.dataProvider.addTransaction(this.user, this.fc, -promos.value);
+      this.showToast("Promotiion applied !");
+    } else {
+      this.showToast("Insufficient points.");
+    }
   }
 
 }
