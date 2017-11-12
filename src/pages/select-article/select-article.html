@@ -31,9 +31,8 @@
           Custom amount
         </ion-card-header>
         <ion-card-content no-padding>
-          <ion-item no-padding>
-            +
-            <ion-input placeholder="amount..." id="custom" [(ngModel)]="custom"></ion-input>
+          <ion-item no-padding class="middle">
+            +<ion-input placeholder="amount..." id="custom" [(ngModel)]="custom" style="text-align: center"></ion-input>
           </ion-item>
           <button ion-button block color="secondary" (click)="customValue(custom)">Add</button>
         </ion-card-content>
