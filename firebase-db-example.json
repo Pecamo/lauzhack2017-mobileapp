@@ -1,0 +1,135 @@
+{
+  "businesses": {
+    "holycow": {
+      "FCs": {
+        "holy_fc1": {
+          "articles": {
+            "a22aa01": {
+              "key": "Burger",
+              "value": 0.5
+            },
+            "02sdf": {
+              "key": "Big Burger",
+              "value": 1
+            },
+            "0sdf3": {
+              "key": "Menu",
+              "value": 2
+            }
+          },
+          "description": "A brand new way to have free food & drinks",
+          "name": "Holy Cow",
+          "promos": {
+            "aslkfj": {
+              "key": "1 free drink",
+              "value": 5
+            },
+            "alésdkfjaaa22": {
+              "key": "1 free burger",
+              "value": 10
+            }
+          }
+        }
+      },
+      "infos": {
+        "coordinates": [
+          {
+            "address": "Rue des Terreaux 10, 1003 Lausanne",
+            "coordinates": [
+              46.522737,
+              6.628183
+            ]
+          },
+          {
+            "address": "EPFL, 1015 Lausanne",
+            "coordinates": [
+              46.522325,
+              6.565664
+            ]
+          }
+        ],
+        "description": "Holy Cow! is a fast casual restaurant concept, focusing on delicious fresh, nutritious burgers served in a quick, friendly environment. Our burgers are made with locally Swiss, fresh quality ingredients and cooked in front of the customers in our open kitchens.",
+        "logo": "https://www.holycow.ch/wp-content/uploads/2017/06/logo-holy-cow-USE.png",
+        "name": "Holy cow",
+        "website": "https://www.holycow.ch/"
+      }
+    },
+    "domino": {
+      "FCs": {
+        "domino_1": {
+          "articles": {
+            "1lkj1": {
+              "key": "Pizza",
+              "value": 1
+            }
+          },
+          "description": "Pay 10, get the 11th free!",
+          "name": "Pizza Time!",
+          "promos": {
+            "11asdlfkj": {
+              "key": "1 pizza",
+              "value": 10
+            }
+          }
+        }
+      },
+      "infos": {
+        "coordinates": [
+          {
+            "address": "Avenue de Tivoli 70, 1007 Lausanne",
+            "coordinates": [
+              46.522031,
+              6.616347
+            ]
+          }
+        ],
+        "description": "Domino's Pizza is recognized as the world's leading pizza delivery company. Fresh is Best !",
+        "logo": "http://image3.mouthshut.com/images/imagesp/925592951s.jpg",
+        "name": "Dominos Pizza",
+        "website": "https://www.dominos.ch"
+      }
+    },
+    "semeuse": {
+      "FCs": {
+        "la_semeuse": {
+          "description": "Get some discount based on your buyings",
+          "name": "Custom discount"
+        }
+      },
+      "infos": {
+        "coordinates": [
+          {
+            "address": "Allée Paysans-Horlogers 1, 2300 La Chaux-de-Fonds",
+            "coordinates": [
+              47.087842,
+              6.812997
+            ]
+          }
+        ],
+        "description": "Coffee making is a ceremony and its preparation requires care. Our coffee the best in class, especially loved by passionate jammers and hackathers. Enjoy the kick of a good coffeine boost!",
+        "logo": "https://www.lasemeuse.ch/media/smart_banner/ic_launcher.png",
+        "name": "La Semeuse",
+        "website": "https://www.lasemeuse.ch/"
+      }
+    }
+  },
+  "managers": {
+    "3Jn7VjBouBV1FylgByZX4iF4r8g1": {
+      "business_id": "domino",
+      "privilege": 1
+    },
+    "EgNIt0Dd2uPwraBYa2SjBWWBqiJ3": {
+      "business_id": "holycow",
+      "privilege": 1
+    },
+    "Nzza1c0oishE9IvIueOiEO1iDQ82": {
+      "business_id": "domino",
+      "privilege": 1
+    },
+    "XHGZy8n7bSPCFOeuPMBVjVGdvlr2": {
+      "business_id": "semeuse",
+      "privilege": 1
+    }
+  }
+}
+

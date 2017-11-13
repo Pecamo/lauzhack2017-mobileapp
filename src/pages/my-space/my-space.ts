@@ -40,9 +40,9 @@ export class MySpacePage extends Page {
     if (b._minPromo) return b._minPromo;
 
     b._minPromo = this.objectToList(b.FCs)
-      .map(fc => fc.promos ? fc.promos.map(p => p.value)
+      .map(fc => fc.promos ? this.objectToList(fc.promos).map(p => p.value)
         .reduce((a, b) => a < b ? a : b) : Number.MAX_VALUE).reduce((a, b) => a < b ? a : b);
-    if(b._minPromo == Number.MAX_VALUE) b._minPromo = '?';
+    if (b._minPromo == Number.MAX_VALUE) b._minPromo = '?';
     return b._minPromo;
   }
 
